@@ -44,4 +44,39 @@ function getCategories() {
     });
 }
 
-module.exports = { initialize, getAllPosts, getPublishedPosts, getCategories };
+function getPostById(id) {
+    return new Promise((resolve, reject) => {
+        const filteredPosts = posts.filter(post => post.id == id);
+        const uniquePost = filteredPosts[0]
+        if (uniquePost) resolve(uniquePost)
+        else reject("no result returned")
+    })
+}
+
+function getPostsByCategory(category) {
+    return new Promise((resolve, reject) => {
+        const filteredPosts = posts.filter(post => post.category === category);
+        if (filteredPosts.length > 0) resolve(filteredPosts)
+        else reject("no results returned")
+    })
+}
+
+function getPostsByMinDate(minDate) {
+    return new Promise((resolve, reject) => {
+        const filteredPosts = posts.filter(post => new Date(post.postDate) >= new Date(minDate));
+        if (filteredPosts.length > 0) resolve(filteredPosts)
+        else reject("no results returned")
+    })
+}
+
+function addPost(postData) {
+    return new Promise((resolve) => {
+        postData.published = postData.published;
+        postData.id = posts.length + 1;
+        posts.push(postData);
+        resolve(postData);
+    });
+}
+
+
+module.exports = { initialize, getAllPosts, getPublishedPosts, getCategories, addPost, getPostById, getPostsByCategory, getPostsByMinDate};
