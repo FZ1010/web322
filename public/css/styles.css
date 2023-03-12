@@ -1,0 +1,32 @@
+th, td {
+    background-color: #060609;
+}
+
+td:hover{
+    background-color: ghostwhite;
+    color: #060609 !important;
+    transition: 200ms;
+}
+
+td:hover > a{
+    color: #060609 !important;
+}
+
+.table > thead > tr > th {
+    border-color: white;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-color: white;
+}
+
+a.list-group-item, button.list-group-item{
+    background-color: #060609;
+    color: #888888;
+}
+
+a.list-group-item:hover, button.list-group-item:hover{
+    background-color: ghostwhite;
+    color: #060609 !important;
+    transition: 200ms;
+}

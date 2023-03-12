@@ -37,6 +37,16 @@ function getPublishedPosts() {
     });
 }
 
+function getPublishedPostsByCategory(category) {
+    return new Promise((resolve, reject) => {
+        const categoryId = parseInt(category);
+        const publishedPostsByCategory = posts.filter(post => post.published === true && post.category === categoryId);
+        if (publishedPostsByCategory.length > 0) resolve(publishedPostsByCategory);
+        else reject("no results returned");
+    });
+}
+
+
 function getCategories() {
     return new Promise((resolve, reject) => {
         if (categories.length === 0) reject("no results returned");
@@ -55,7 +65,8 @@ function getPostById(id) {
 
 function getPostsByCategory(category) {
     return new Promise((resolve, reject) => {
-        const filteredPosts = posts.filter(post => post.category === category);
+        const categoryId = parseInt(category);
+        const filteredPosts = posts.filter(post => post.category === categoryId);
         if (filteredPosts.length > 0) resolve(filteredPosts)
         else reject("no results returned")
     })
@@ -73,10 +84,12 @@ function addPost(postData) {
     return new Promise((resolve) => {
         postData.published = postData.published;
         postData.id = posts.length + 1;
+        postData.postDate = new Date().toISOString().slice(0,10);
         posts.push(postData);
         resolve(postData);
     });
 }
 
 
-module.exports = { initialize, getAllPosts, getPublishedPosts, getCategories, addPost, getPostById, getPostsByCategory, getPostsByMinDate};
+
+module.exports = { initialize, getAllPosts, getPublishedPosts, getPublishedPostsByCategory, getCategories, addPost, getPostById, getPostsByCategory, getPostsByMinDate};
